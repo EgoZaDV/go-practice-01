@@ -10,9 +10,17 @@
 
 ## Выполнено
 
-- Проверено: проект запускается локально.
-- Создал репозиторий на Github, подключил к нему go-practice-01.
-- Изучил теорию 1 практики и сделал все задания.
+- Проверено: проект запускается локально
+- Создал репозиторий на Github, подключил к нему go-practice-01
+- Изучил теорию 1 практики и сделал задания
+- Выполнил практическую работу №1
+
+---
+
+- Изучил теорию про циклы и условия во 2 практической работе
+- Изучил массивы и map
+- Написал и отредактировал код задания
+- Выполнил практическую работу №2
 
 ## Запуск первой программы
 
@@ -150,6 +158,75 @@ func main() {
 go run ./cmd/average
 Сумма: 80
 Среднее арифметическое: 26.67
+```
+
+## Код и запуск программы для задания в практической работе №2 (оно тут единственное)
+
+### Код
+
+```go
+package main
+
+import "fmt"
+
+func statusLabel(status string) string {
+	switch status {
+	case "new":
+		return "Новая"
+	case "in_progress":
+		return "B процессе"
+	case "done":
+		return "Завершена"
+	default:
+		return "Неизвестный статус"
+	}
+}
+
+func countStatus(statuses []string, target string) int {
+	count := 0
+	for _, element := range statuses {
+		if element == target {
+			count++
+		}
+	}
+	return count
+}
+
+func main() {
+	statuses := []string{"new", "in_progress", "done", "done"}
+	statuses = append(statuses, "new")
+
+	fmt.Printf("Задач всего: %d\n", len(statuses))
+	for i, status := range statuses {
+		fmt.Printf("%d. %s\n", i+1, statusLabel(status))
+	}
+	fmt.Printf("Завершено: %d\n", countStatus(statuses, "done"))
+
+	counts := make(map[string]int)
+	for _, status := range statuses {
+		counts[status]++
+	}
+
+	fmt.Printf("Статистика: new = %d, in_progress = %d, done = %d\n", counts["new"], counts["in_progress"], counts["done"])
+	fmt.Println("Проверка statusLabel(blocked):", statusLabel("blocked"))
+	fmt.Println("Проверка countStatus([]string{}, done):", countStatus([]string{}, "done"))
+}
+```
+
+### Запуск в терминале
+
+```text
+go run ./cmd/task-summary
+Задач всего: 5
+1. Новая
+2. B процессе
+3. Завершена
+4. Завершена
+5. Новая
+Завершено: 2
+Статистика: new = 2, in_progress = 1, done = 2
+Проверка statusLabel(blocked): Неизвестный статус
+Проверка countStatus([]string{}, done): 0
 ```
 
 ## Что осталось сделать
